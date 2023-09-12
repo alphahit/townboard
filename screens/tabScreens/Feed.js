@@ -23,12 +23,24 @@ import {
 } from 'react-native-responsive-screen';
 import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
+import RetweetModal from '../../components/RetweetModal';
 
 export default function Feed() {
   //const [changeColor, setChangeColor] = useState(['#FEFEFE','#CEFFFC','#FEFEFE' ])
+  const [isModalVisible, setModalVisible] = useState(false);
   useEffect(() => {
     console.log('Tweets================================', tweets);
+    
+    
   });
+const toggleModal = () => {
+        setModalVisible(!isModalVisible);
+      };
+  const handleRetweet = () => {
+    // Implement your retweet logic here
+    // ...
+    toggleModal();
+  };
   const rainbow = [
     '#9400D3',
     '#4B0082',
@@ -137,7 +149,7 @@ export default function Feed() {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => {}}
+            onPress={toggleModal}
             style={{
               flexDirection: 'row',
               alignItems: 'center',
@@ -168,7 +180,7 @@ export default function Feed() {
             <AntDesign name="dislike1" size={20} color="#000" />
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity >
             <FontAwesome name="share-square" size={20} color="#000" />
           </TouchableOpacity>
         </View>
@@ -184,20 +196,19 @@ export default function Feed() {
     );
   };
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerShown: false,
-      headerLeft: () => (
-        <Pressable onPress={() => navigation.openDrawer()}>
-          <FontAwesome5 name="user-astronaut" size={30} color="#000" />
-        </Pressable>
-      ),
-    });
-  });
+  // useLayoutEffect(() => {
+  //   navigation.setOptions({
+  //     headerShown: true,
+  //     headerStyle:{
+  //       backgroundColor:"pink"
+  //     },
+     
+  //   });
+  // });
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
-      <View
+      {/* <View
         style={{
           height: 55,
           width: wp(100),
@@ -206,7 +217,9 @@ export default function Feed() {
           alignItems: 'center',
           paddingLeft: 15,
         }}>
-        <View style={{flexDirection: 'row', width: '20%'}}>
+        <TouchableOpacity style={{flexDirection: 'row', width: '20%'}}
+        onPress={() => navigation.openDrawer()}
+        >
           <FontAwesome5
             name="user-astronaut" // Change this to your desired icon name
             size={24}
@@ -219,7 +232,7 @@ export default function Feed() {
             color="black" // Change the icon color
             style={{}} // Adjust the icon's position as needed
           />
-        </View>
+        </TouchableOpacity>
 
           <Text style={{color: 'black', fontSize: 20, width: '60%', textAlign:"center"}}>Feed</Text>
        
@@ -231,7 +244,12 @@ export default function Feed() {
             style={{ marginRight:-10}} // Adjust the icon's position as needed
           />
         </TouchableOpacity>
-      </View>
+      </View> */}
+      <RetweetModal
+        isVisible={isModalVisible}
+        onClose={toggleModal}
+        onRetweet={handleRetweet}
+      />
       <View style={{}}>
         <FlatList
           data={tweets}

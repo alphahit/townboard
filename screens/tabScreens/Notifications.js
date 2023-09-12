@@ -11,8 +11,9 @@ import {
 
 export const Notifications = () => {
 return(
-    <View>
-        <Text>Notifications</Text>
+    <View style={{flex:1, alignItems:"center", justifyContent:"center"}}> 
+
+        <Text style={{color:"black", fontSize:14, backgroundColor:"#00ce61", padding:5, borderRadius:5}} >Notifications Screen In Developement</Text>
     </View>
 )
 }
