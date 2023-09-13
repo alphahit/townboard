@@ -23,12 +23,10 @@ import {
 } from 'react-native-responsive-screen';
 import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
-import { GoogleSignin, GoogleSigninButton, statusCodes } from '@react-native-google-signin/google-signin';
-import { _signinWithGoogle } from '../../config/firebase/GoogleSignIn';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const SignInScreen = () => {
-    const [user, setUser] = useState(null);
+import { GoogleSignin, GoogleSigninButton, statusCodes } from '@react-native-google-signin/google-signin';
+export const SignInScreen = ({signInWithGoogle}) => {
+    
   
     // useEffect(() => {
     //   configureGoogleSignIn();
@@ -46,46 +44,12 @@ export const SignInScreen = () => {
     //   }
     // };
   
-    const signInWithGoogle = async () => {
-    //   try {
-    //     await GoogleSignin.hasPlayServices();
-    //     const userInfo = await GoogleSignin.signIn();
-    //     setUser(userInfo);
-    //   } catch (error) {
-    //     if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-    //       // User cancelled the sign-in process
-    //       console.log('Google Sign-In cancelled');
-    //     } else if (error.code === statusCodes.IN_PROGRESS) {
-    //       // Sign-in is already in progress
-    //       console.log('Google Sign-In is already in progress');
-    //     } else {
-    //       console.error('Google Sign-In error: ', error);
-    //     }
-    //   }
-
-
-    _signinWithGoogle().then((data)=>{
-        if(!data){
-            console('<==================================No Data From Google :Error==================================>')
-            return
-        }
-        console.log("Successfully signed using google sign in================================================>",data);
-        setUser(data)
-       
-    })
-
-    await AsyncStorage.setItem('userdata', user.user.name);
-    };
+    
   
     return (
       <SafeAreaView style={styles.container}>
-        {user ? (
-          <View>
-            <Text>Welcome, {user.user.name}</Text>
-            <Text>Email: {user.user.email}</Text>
-          </View>
-        ) : (
-          <View>
+      
+          
           
             <GoogleSigninButton
               style={{ width: 192, height: 48 }}
@@ -93,8 +57,8 @@ export const SignInScreen = () => {
               color={GoogleSigninButton.Color.Light}
               onPress={signInWithGoogle}
             />
-          </View>
-        )}
+          
+        
 
 
       </SafeAreaView>

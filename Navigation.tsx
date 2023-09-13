@@ -69,14 +69,7 @@ function HomeStackGroup() {
         //headerShown: route.name == "Feed" ? true : false
         headerShown: false,
       })}>
-        <HomeStack.Screen
-        name="SignInScreen"
-        component={SignInScreen}
-        options={{
-          headerShown: false,
-         // presentation: 'fullScreenModal',
-        }}
-      />
+       
       <HomeStack.Screen
         name="BottomTabGroup"
         component={BottomTabGroup}
