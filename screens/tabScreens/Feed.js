@@ -205,6 +205,26 @@ const toggleModal = () => {
      
   //   });
   // });
+  useEffect(()=> {
+
+
+    setTimeout(()=> {
+      getToken()
+    },1000)
+    
+   
+  }, []);
+  const getToken = async() => {
+   
+    const token = await AsyncStorage.getItem('token')
+    if (!token) {
+      console.log('Get Token Called False====>',token)
+     
+    }else{
+      console.log('Get Token Called True====>',token)
+      
+    }
+  }
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>

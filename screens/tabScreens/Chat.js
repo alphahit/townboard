@@ -7,6 +7,8 @@ import {
     StyleSheet,
     View,
     TouchableOpacity,
+    Button,
+    TextInput
   } from 'react-native';
   
   import {tweets} from '../../data/tweets';
@@ -25,11 +27,13 @@ import {
   import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
   
 
-export const Topics = () => {
-return(
-  <View style={{flex:1, alignItems:"center", justifyContent:"center"}}> 
-
-  <Text style={{color:"black", fontSize:14, backgroundColor:"#00ce61", padding:5, borderRadius:5}} >Topics Screen In Developement</Text>
-</View>
+export const Chat = () => {
+  
+return (
+    <SafeAreaView style={{flex:1, alignItems:"center", justifyContent:'center', backgroundColor:"black"}}>
+        <Text>Country List</Text>
+        
+  
+    </SafeAreaView>
 )
 }
