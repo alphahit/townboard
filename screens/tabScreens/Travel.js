@@ -13,7 +13,7 @@ import {
 
 import {tweets} from '../../data/tweets';
 import {Tweet} from '../../components/Tweet';
-import {useNavigation} from '@react-navigation/native';
+
 import {useEffect, useLayoutEffect, useState} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/dist/FontAwesome5';
 import LinearGradient from 'react-native-linear-gradient';
@@ -25,9 +25,10 @@ import {
 } from 'react-native-responsive-screen';
 import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
+import Animated from 'react-native-reanimated';
 
-export const Travel = () => {
-  const navigation = useNavigation();
+export const Travel = ({navigation}) => {
+ 
   const [countries, setCountries] = useState([
     {
       id: 1,
@@ -92,7 +93,7 @@ export const Travel = () => {
   };
 
   return (
-    <SafeAreaView
+    <Animated.View
       style={{flex: 1, justifyContent: 'center', backgroundColor: 'white'}}>
    
       
@@ -124,15 +125,20 @@ export const Travel = () => {
         renderItem={({item}) => (
           <TouchableOpacity style={{width:wp(50), alignItems:'center'}}
           onPress={() => {
-            navigation.navigate('CountryDetails', {countryCode: item.iso2, countryImage: item.img})
+            navigation.navigate('CountryDetails', {countryCode: item.iso2, countryImage: item.img, countryName: item.name,
+              
+                sharedTransitionTag: item.id + 'image',
+              
+            })
           }}
           >
-          <View style={{borderRadius:10, borderWidth:1, marginTop:10,width: 162, borderColor:"#9FFFE0"}}>
+          <Animated.View style={{borderRadius:10, borderWidth:1, marginTop:10,width: 162, borderColor:"#9FFFE0"}}>
             <Text style={{color: 'black', fontSize: 14, width:'100%',textAlign:'center'}} >{item.name.toUpperCase()}</Text>
-            <Image
+            <Animated.Image
               style={{width: 160, height: 90}}
               resizeMode="stretch"
               source={item.img}
+              sharedTransitionTag={item.id + 'image'}
             />
 
             <TouchableOpacity
@@ -176,10 +182,10 @@ export const Travel = () => {
                 Delete Country
               </Text>
             </TouchableOpacity>
-          </View>
+          </Animated.View>
           </TouchableOpacity>
         )}
       />
-    </SafeAreaView>
+    </Animated.View>
   );
 };

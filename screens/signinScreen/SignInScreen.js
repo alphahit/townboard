@@ -33,7 +33,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {_signinWithGoogle} from '../../config/firebase/GoogleSignIn';
 export const SignInScreen = () => {
-
+ 
   const navigation = useNavigation();
 
   const signInWithGoogle = async () => {

@@ -7,7 +7,7 @@ import Feed from './screens/tabScreens/Feed';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Travel} from './screens/tabScreens/Travel';
-import {Settings} from './screens/tabScreens/Settings';
+import Settings from './screens/tabScreens/Settings';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';

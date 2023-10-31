@@ -1,10 +1,16 @@
-import React, { useEffect } from 'react';
-import { View, Image, Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Image, Text, FlatList, TouchableOpacity, SafeAreaView, ActivityIndicator } from 'react-native';
 import axios from 'axios';
-import { useRoute } from '@react-navigation/native';
-const CountryDetails = () => {
+import { useNavigation, useRoute } from '@react-navigation/native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import Ionicons from 'react-native-vector-icons/dist/Ionicons';
+import Animated from 'react-native-reanimated';
+const CountryDetails = ({navigation}) => {
 
-
+const [stateList, setStateLsit] = useState([])
 //   useEffect(() => {
 //     var headers = new Headers();
 // headers.append("X-CSCAPI-KEY", "UWp2WnNUQ1pRbjlDd1JSSVRNclpqWW9KVFRPOUhoT01IQWRORHppdQ==");
@@ -37,6 +43,7 @@ useEffect(() => {
         }
       });
       console.log(response.data);
+      setStateLsit(response.data)
     } catch (error) {
       console.error('error', error);
     }
@@ -48,18 +55,40 @@ useEffect(() => {
 
 
   return (
-    <View style={{ flex: 1 }}>
-      {/* <Image
-        source={country.img}
+    <Animated.View style={{ flex: 1 }}>
+      <TouchableOpacity
+            onPress={() => {
+              navigation.goBack();
+            }}
+            style={{position: 'absolute', zIndex:9999, top:10}}
+            >
+            <Ionicons name="arrow-back-circle" size={40} color="#000" />
+          </TouchableOpacity>
+      <Animated.Image
+        source={route.params.countryImage}
         style={{ width: '100%', height: 200 }}
         resizeMode="cover"
-      /> */}
-      <View style={{ flex: 1, padding: 10 }}>
-        <Text style={{ fontSize: 24, fontWeight: 'bold' }}>India</Text>
-        <Text style={{ fontSize: 16 }}>States:</Text>
-       
+        sharedTransitionTag={route.params.sharedTransitionTag}
+      />
+      
+      <View style={{ alignItems:'center', justifyContent:'center'}}>
+
+        <Text style={{ fontSize: 18, fontWeight: 'bold',color:'black', marginVertical:10 }}>States in {route.params.countryName}:</Text>
+        
+        {stateList.length == 0 ? <ActivityIndicator/> : <FlatList
+        data={stateList}
+        keyExtractor={item => item.id.toString()}
+        numColumns={2}
+        style={{height:hp(65)}}
+        renderItem={({item}) => (
+          <View style={{width:wp(50), alignItems:'center', height:40, borderRadius:5, borderColor:"#9FFFE0", borderWidth:1, alignItems:'center', justifyContent:'center'}}>
+          <Text style={{ fontSize: 14, color:'black' }}>{item.name}</Text>
+          </View>
+        )}
+      />}
+        
       </View>
-    </View>
+    </Animated.View>
   );
 };
 
