@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "445348869802",
+    "project_id": "townhall-001",
+    "storage_bucket": "townhall-001.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:445348869802:android:33370c125f5f3aa0e4c2d3",
+        "android_client_info": {
+          "package_name": "com.townboard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "445348869802-g2982ghq22bbu81fek5dc8uqh5npk3g3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.townboard",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "445348869802-507euhbi8f3mgv3vtvrrg0lami02ic0i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBf2BOFuyCMy5i8Lvi1MdFooM8-ejbrS_M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "445348869802-507euhbi8f3mgv3vtvrrg0lami02ic0i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
