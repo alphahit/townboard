@@ -10,6 +10,8 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Travel} from './screens/tabScreens/Travel';
 import Settings from './screens/tabScreens/Settings';
+import React from 'react';
+
 // import {createDrawerNavigator} from '@react-navigation/drawer';
 // import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 // import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
@@ -165,14 +167,7 @@ function BottomTabGroup() {
     </Tab.Navigator>
   );
 }
-// const getData = async () => {
-//   try {
-//     const user = await AsyncStorage.getItem('userdata');
-//     if (user !== null) {
-//       await AsyncStorage.setItem('userdata', '');
-//     }
-//   } catch (e) {}
-// };
+
 export default function Navigation() {
   return (
     <NavigationContainer>

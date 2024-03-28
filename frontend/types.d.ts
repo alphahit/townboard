@@ -3,4 +3,6 @@ declare module 'react-native-vector-icons/dist/MaterialCommunityIcons';
 declare module 'react-native-vector-icons/dist/MaterialIcons';
 declare module 'react-native-vector-icons/dist/FontAwesome5';
 declare module 'react-native-vector-icons/dist/FontAwesome';
-declare module 'react-native-vector-icons/dist/AntDesign'
+declare module 'react-native-vector-icons/dist/AntDesign';
+declare module 'react-native-snap-carousel';
+declare module 'react-native-vector-icons/MaterialIcons';
