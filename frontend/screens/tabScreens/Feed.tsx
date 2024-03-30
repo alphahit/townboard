@@ -24,6 +24,7 @@ import {
 // import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 // import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
 import RetweetModal from '../../components/RetweetModal';
+import React from 'react';
 
 export default function Feed() {
   //const [changeColor, setChangeColor] = useState(['#FEFEFE','#CEFFFC','#FEFEFE' ])

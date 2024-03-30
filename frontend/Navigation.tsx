@@ -10,7 +10,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Travel} from './screens/tabScreens/Travel';
 import Settings from './screens/tabScreens/Settings';
-import React from 'react';
+import React, {useContext} from 'react';
 
 // import {createDrawerNavigator} from '@react-navigation/drawer';
 // import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
@@ -42,6 +42,8 @@ import {Chat} from './screens/tabScreens/Chat';
 import {SignInScreen} from './screens/signinScreen/SignInScreen';
 import CountryDetails from './screens/homeStack/CountryDetails';
 import {SplashScreen} from './screens/homeStack/Splash';
+import GlobalState, {GlobalContext} from './context';
+import {Image} from 'react-native';
 
 const TopTabs = createMaterialTopTabNavigator();
 function TopTabsGroup() {
@@ -114,26 +116,52 @@ function HomeStackGroup() {
 const Tab = createBottomTabNavigator();
 
 function BottomTabGroup() {
+  const context = useContext(GlobalContext);
+
+  if (!context) {
+    throw new Error('GlobalContext must be used within a GlobalState provider');
+  }
+
+  const {currentUserName, currentUserPhoto} = context;
   return (
     <Tab.Navigator
       screenOptions={({route, navigation}) => ({
         headerShown: false,
-
+        tabBarActiveTintColor: 'red',
+        tabBarInactiveTintColor: 'black',
         tabBarStyle: {backgroundColor: '#9FFFE0'},
         tabBarIcon: ({color, focused, size}) => {
           let iconName;
+          let iconComponent;
+
           if (route.name === 'Feed') {
             iconName = focused ? 'home' : 'home-outline';
+            if (currentUserPhoto) {
+              iconComponent = (
+                <Image
+                  source={{uri: currentUserPhoto}}
+                  style={{width: size, height: size, borderRadius: size / 2}}
+                />
+              );
+            } else {
+              iconComponent = (
+                <Ionicons name={iconName} size={size} color={color} />
+              );
+            }
           } else if (route.name === 'Travel') {
             iconName = focused ? 'airplane' : 'airplane-outline';
+            iconComponent = (
+              <Ionicons name={iconName} size={size} color={color} />
+            );
           } else if (route.name === 'Settings') {
             iconName = focused ? 'settings' : 'settings-outline';
+            iconComponent = (
+              <Ionicons name={iconName} size={size} color={color} />
+            );
           }
 
-          return <Ionicons name={iconName} size={24} color={color} />;
+          return iconComponent;
         },
-        tabBarActiveTintColor: 'red',
-        tabBarInactiveTintColor: 'black',
       })}>
       <Tab.Screen
         name="Feed"
@@ -141,7 +169,7 @@ function BottomTabGroup() {
         options={{
           headerShown: false,
 
-          tabBarLabel: '@alphahit',
+          tabBarLabel: currentUserName || '@alphahit',
         }}
       />
       <Tab.Screen
@@ -170,8 +198,10 @@ function BottomTabGroup() {
 
 export default function Navigation() {
   return (
-    <NavigationContainer>
-      <HomeStackGroup />
-    </NavigationContainer>
+    <GlobalState>
+      <NavigationContainer>
+        <HomeStackGroup />
+      </NavigationContainer>
+    </GlobalState>
   );
 }

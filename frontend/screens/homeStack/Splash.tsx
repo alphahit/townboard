@@ -19,14 +19,14 @@ import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const SplashScreen = () => {
-  const [vendors, setvendors] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [avatar, setAvatar] = useState('');
-  const [isModalVisible, setModalVisible] = useState(false);
+  // const [vendors, setvendors] = useState([]);
+  // const [loading, setLoading] = useState(false);
+  // const [page, setPage] = useState(1);
+  // const [firstName, setFirstName] = useState('');
+  // const [lastName, setLastName] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [avatar, setAvatar] = useState('');
+  // const [isModalVisible, setModalVisible] = useState(false);
 
   const navigation = useNavigation();
 

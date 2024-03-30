@@ -32,8 +32,18 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {_signinWithGoogle} from '../../config/firebase/GoogleSignIn';
-import React from 'react';
+import React, {useContext} from 'react';
+import {GlobalContext} from '../../context';
 export const SignInScreen = () => {
+  const context = useContext(GlobalContext);
+
+  if (!context) {
+    // handle the case where context is null
+    throw new Error('GlobalContext must be used within a GlobalState provider');
+  }
+
+  const {setCurrentUserName, setCurrentUser, setCurrentUserPhoto} = context;
+
   const navigation = useNavigation();
 
   const signInWithGoogle = async () => {
@@ -52,6 +62,12 @@ export const SignInScreen = () => {
     );
 
     if (data?.idToken) {
+      const {user} = data;
+      console.log('user===>', user);
+      setCurrentUserName(user?.name);
+      setCurrentUser(user?.id);
+      setCurrentUserPhoto(user?.photo);
+
       await AsyncStorage.setItem('token', data?.idToken);
       navigation.navigate('BottomTabGroup');
     } else {
@@ -123,34 +139,21 @@ export const SignInScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{marginTop: hp(7.5)}}>
-        <Text
-          style={{
-            color: 'black',
-            fontWeight: 'bold',
-            fontSize: 20,
-            textAlign: 'center',
-          }}>
-          Welcome Earthling !!
-        </Text>
-        <Image
-          source={require('../../assets/images/Townhall.png')} // Pass the URL as the 'uri' property
-          style={{
-            width: 200,
-            height: 200,
-            resizeMode: 'contain',
-          }}
-        />
+      <Text style={styles.welcomeText}>Welcome Earthling !!</Text>
+      <Image
+        source={require('../../assets/images/Townhall.png')}
+        style={styles.earthImage}
+      />
 
-        <GoogleSigninButton
-          style={{width: 192, height: 48, borderRadius: 10}}
-          size={GoogleSigninButton.Size.Wide}
-          color={GoogleSigninButton.Color.Light}
-          onPress={signInWithGoogle}
-        />
-      </View>
+      <GoogleSigninButton
+        style={styles.googleSignInButton}
+        size={GoogleSigninButton.Size.Wide}
+        color={GoogleSigninButton.Color.Light}
+        onPress={signInWithGoogle}
+      />
 
       <Carousel
+        style={styles.carouselContainer}
         data={data}
         renderItem={renderItem}
         sliderWidth={wp(100)} // Set the width of the carousel
@@ -164,6 +167,45 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    justifyContent: 'space-between', // Add this for vertical spacing
     backgroundColor: '#9FFFE0',
+    paddingTop: hp(10), // Add some vertical padding
+  },
+  welcomeText: {
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 20,
+    textAlign: 'center',
+  },
+  earthImage: {
+    width: 200,
+    height: 200,
+    resizeMode: 'contain',
+  },
+  googleSignInButton: {
+    width: wp(60),
+    height: 50,
+    borderRadius: 10,
+    shadowColor: '#000', // Add shadow for depth
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  carouselContainer: {
+    height: hp(50),
+    backgroundColor: 'white',
+    width: '100%',
+    borderTopEndRadius: 20,
+    borderTopLeftRadius: 20,
+    borderWidth: 2,
+    borderColor: '#00CE61',
+    position: 'absolute',
+    bottom: 0,
+  },
+  carouselImage: {
+    width: 300,
+    height: 300,
+    resizeMode: 'contain',
   },
 });
