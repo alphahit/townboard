@@ -12,7 +12,11 @@ import {
   Platform,
   UIManager,
 } from 'react-native';
-
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+} from 'react-native-reanimated';
 import {useNavigation} from '@react-navigation/native';
 import {useEffect, useLayoutEffect} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/dist/FontAwesome5';
@@ -24,6 +28,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {useRoute} from '@react-navigation/native';
+import React from 'react';
 
 if (Platform.OS === 'android') {
   if (UIManager.setLayoutAnimationEnabledExperimental) {
@@ -44,54 +49,64 @@ export const TweetContent = ({
   };
   const route = useRoute();
   const renderComments = (items, index) => {
+    console.log('Items In Comments =====>', items);
+    console.log(
+      'Length of comments =====>',
+      params?.item?.item?.positive_comments.length,
+    );
 
+    return (
+      <View
+        style={{
+          // marginBottom:
+          //   index === params?.item?.item?.positive_comments.length - 1
+          //     ? 200
+          //     : 0,
+          marginTop: -20,
+          paddingBottom: 20,
+          marginBottom: 0,
+        }}>
+        <Text
+          style={{
+            color: 'black',
+            fontSize: 14,
 
-    console.log("Items In Comments =====>",items)
-    console.log("Length of comments =====>", params?.item?.item?.positive_comments.length)
-    
-    return(
-      <View style={{marginBottom:   index === params?.item?.item?.positive_comments.length - 1 ? 200:0, marginTop:-20}}>
-      <Text
-      style={{
-        color: 'black',
-        fontSize: 14,
-       
-        transform: [{rotate: '350deg'}],
-       
-        marginLeft:10,
-        marginTop:30,
-      }}>
-      { items?.item?.user_name}
-      </Text>
-      <Text
-            style={{
-              color: 'black',
-              fontSize: 14,
-              padding: 15,
-              backgroundColor: '#9FFFE0',
-              borderRadius:15,
-              transform: [{rotate: '350deg'}],
-              width:"95%" ,
-              marginTop:5,
-              alignSelf: 'center',
-              
-            }}>
-            {items?.item?.comment_text}
-          </Text>
+            transform: [{rotate: '350deg'}],
+
+            marginLeft: 10,
+            marginTop: 30,
+          }}>
+          {items?.item?.user_name}
+        </Text>
+        <Text
+          style={{
+            color: 'black',
+            fontSize: 14,
+            padding: 15,
+            backgroundColor: '#9FFFE0',
+            borderRadius: 15,
+            transform: [{rotate: '350deg'}],
+            width: '95%',
+            marginTop: 5,
+            alignSelf: 'center',
+          }}>
+          {items?.item?.comment_text}
+        </Text>
       </View>
-      
-    )
-  }
+    );
+  };
 
   const {params} = route;
   useEffect(() => {
-    console.log('Prop ITEM Passed ===========>', JSON.stringify(params?.item));
-  });
+    console.log(
+      'Prop ITEM Passed ===========>',
+      JSON.stringify(params?.item?.item?.id),
+    );
+  }, []);
   return (
-    <View style={{alignItems: 'center'}}>
-      <View
+    <View style={{alignItems: 'center', height: '100%'}}>
+      <Animated.View
         style={{
-          marginBottom: 20,
           marginTop: 20,
           borderWidth: 1,
           padding: 10,
@@ -99,9 +114,10 @@ export const TweetContent = ({
           backgroundColor: 'white',
           alignSelf: 'center',
           marginHorizontal: wp(2),
-        }}>
+        }}
+        sharedTransitionTag={`post-${params?.item?.item?.id}`}>
         <Text style={{color: 'black'}}>{params?.item?.item?.fullText}</Text>
-      </View>
+      </Animated.View>
 
       <View
         style={{
@@ -217,7 +233,6 @@ export const TweetContent = ({
             Add a comment
           </Text>
         </TouchableOpacity>
-        
 
         <View
           style={{
@@ -260,30 +275,31 @@ export const TweetContent = ({
               </Text>
             </TouchableOpacity>
           )}
-          
         </View>
-        {commentBoxopen && comments.length>0 && 
-        
-        <TouchableOpacity style={{height:30, width:60, backgroundColor:"#00ce61", borderRadius:5, justifyContent:"center", alignItems:"center"}}>
-          <Text style={{color:"black", textAlign:"center", fontSize:14}}>
-            Save
-          </Text>
-        </TouchableOpacity>
-        }
-       
-       
+        {commentBoxopen && comments.length > 0 && (
+          <TouchableOpacity
+            style={{
+              height: 30,
+              width: 60,
+              backgroundColor: '#00ce61',
+              borderRadius: 5,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Text style={{color: 'black', textAlign: 'center', fontSize: 14}}>
+              Save
+            </Text>
+          </TouchableOpacity>
+        )}
+
         <FlatList
           data={params?.item?.item?.positive_comments}
           keyExtractor={item => {
             return item.id;
           }}
           renderItem={renderComments}
-          style={{ height:hp(62.5), width:"100%", }}
+          style={{height: hp(70), width: '100%'}}
         />
-       
-    
-  
-        
       </View>
     </View>
   );

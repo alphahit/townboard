@@ -25,15 +25,21 @@ import {TextInput} from 'react-native-gesture-handler';
 import React from 'react';
 export const TweetDetailsScreen = () => {
   const navigation = useNavigation();
-  const [textWidth, setTextWidth] = useState(null);
+  // const [textWidth, setTextWidth] = useState(null);
   const [comments, setComments] = useState('');
-  const onTextLayout = event => {
-    const {width} = event.nativeEvent.layout;
-    setTextWidth(width);
-  };
+  // const onTextLayout = event => {
+  //   const {width} = event.nativeEvent.layout;
+  //   setTextWidth(width);
+  // };
   const [commentBoxopen, setcommentBoxopen] = useState(false);
 
-  const GradientBorderTouchableOpacity = ({children, onPress}) => {
+  const GradientBorderTouchableOpacity = ({
+    children,
+    onPress,
+  }: {
+    children: any;
+    onPress: any;
+  }) => {
     return (
       <LinearGradient
         colors={['#F7E3FF', '#E195FF']} // Replace with your desired gradient colors
@@ -58,7 +64,7 @@ export const TweetDetailsScreen = () => {
     );
   };
 
-  const GradientBorderView = ({children, onPress}) => {
+  const GradientBorderView = ({children}: {children: any}) => {
     return (
       <LinearGradient
         colors={['#9FFFE0', '#F0FFF8']} // Replace with your desired gradient colors
@@ -126,9 +132,9 @@ export const TweetDetailsScreen = () => {
   });
   const route = useRoute();
   const {params} = route;
-  useEffect(() => {
-    console.log('Prop ITEM Passed ===========>', JSON.stringify(params));
-  });
+  // useEffect(() => {
+  //   console.log('Prop ITEM Passed ===========>', JSON.stringify(params));
+  // },[]);
   return (
     <SafeAreaView
       style={{flex: 1, backgroundColor: '#F0FFF8', flexDirection: 'row'}}>
@@ -136,7 +142,6 @@ export const TweetDetailsScreen = () => {
         style={{
           height: hp(100),
           width: wp(15),
-
           alignItems: 'center',
           justifyContent: 'center',
         }}>
@@ -155,13 +160,13 @@ export const TweetDetailsScreen = () => {
           </TouchableOpacity>
 
           <GradientBorderTouchableOpacity
-            onPress={() => {
-              console.log(
-                '======================================Item',
-                JSON.stringify(item),
-              );
-              //navigation.navigate("TweetDetailsScreen",{item});
-            }}
+            // onPress={() => {
+            //   console.log(
+            //     '======================================Item',
+            //     JSON.stringify(item),
+            //   );
+            //   //navigation.navigate("TweetDetailsScreen",{item});
+            // }}
             style={{
               padding: 10,
               transform: [{rotate: '90deg'}],
@@ -209,7 +214,7 @@ export const TweetDetailsScreen = () => {
       </GradientBorderView>
       <View style={{width: wp(85), height: hp(95)}}>
         <TweetContent
-          tweet={params.item}
+          tweet={params?.item}
           comments={comments}
           setComments={setComments}
           setcommentBoxopen={setcommentBoxopen}
