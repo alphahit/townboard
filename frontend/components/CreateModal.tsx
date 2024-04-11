@@ -1,52 +1,72 @@
 import React, {useContext, useState} from 'react';
-import {Alert, Modal, StyleSheet, Text, Pressable, View} from 'react-native';
-import { GlobalContext } from '../context';
+import {
+  Alert,
+  Modal,
+  StyleSheet,
+  Text,
+  Pressable,
+  View,
+  TextInput,
+} from 'react-native';
+import {GlobalContext} from '../context';
 
 const CreateGroupModal = () => {
-    const context = useContext(GlobalContext);
-
-    if (!context) {
-      throw new Error('GlobalContext must be used within a GlobalState provider');
-    }
- const {modalVisible, setModalVisible} = context
+  const context = useContext(GlobalContext);
+  const [text, onChangeText] = useState('');
+  if (!context) {
+    throw new Error('GlobalContext must be used within a GlobalState provider');
+  }
+  const {modalVisible, setModalVisible, currentGroupName, setCurrentGroupName} =
+    context;
   return (
-   
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setModalVisible(!modalVisible);
-        }}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={modalVisible}
+      onRequestClose={() => {
+        Alert.alert('Modal has been closed.');
+        setModalVisible(!modalVisible);
+      }}>
+      <View style={styles.centeredBackdrop}>
+        <View style={styles.modalView}>
+          <View style={{width: '100%'}}>
+            <TextInput
+              style={styles.input}
+              onChangeText={onChangeText}
+              value={text}
+              placeholder="Create A New Group"
+              placeholderTextColor="#999"
+            />
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}>
+            <Pressable
+              style={[styles.button, styles.buttonCreate]}
+              //onPress={() => setModalVisible(!modalVisible)}
+              >
+              <Text style={styles.textStyle}>Create</Text>
+            </Pressable>
             <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}>
-              <Text style={styles.textStyle}>Hide Modal</Text>
+              <Text style={styles.textStyle}>Cancel</Text>
             </Pressable>
           </View>
         </View>
-      </Modal>
-      
-    
+      </View>
+    </Modal>
   );
 };
 
 const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
-  },
   modalView: {
-    margin: 20,
     backgroundColor: 'white',
     borderRadius: 20,
-    padding: 35,
+    padding: 10,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
@@ -57,25 +77,57 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+
+  centeredBackdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent backdrop
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
   button: {
     borderRadius: 20,
     padding: 10,
     elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
+    shadowColor: '#000', 
+    shadowOffset: {width: 0, height: 1},
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    minWidth: 100, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
   },
   buttonClose: {
-    backgroundColor: '#2196F3',
+    backgroundColor: '#D32F2F',
+    marginLeft: 20,
+  },
+  buttonCreate: {
+    backgroundColor: '#1976D2',
   },
   textStyle: {
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
+  input: {
+    height: 40,
+    minWidth: 220, 
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 10,
+    backgroundColor: 'white',
+    color: '#000',
+    borderRadius: 10,
   },
 });
 

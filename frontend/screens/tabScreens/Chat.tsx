@@ -79,7 +79,7 @@ const {allChatRooms, setAllChatRooms, modalVisible, setModalVisible} = context
             style={styles.input}
             onChangeText={onChangeText}
             value={text}
-            placeholder="Create A New Group"
+            placeholder="Search..."
           />
           <View style={styles.searchContainer}>
             <SvgXml width="20" height="20" xml={searchSvg} />

@@ -23,6 +23,9 @@ interface GlobalStateContextType {
   setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
   allChatRooms: ChatRoom[];
   setAllChatRooms: React.Dispatch<React.SetStateAction<ChatRoom[]>>;
+  currentGroupName: string | null;
+  setCurrentGroupName: React.Dispatch<React.SetStateAction<string | null>>;
+
 }
 
 export const GlobalContext = createContext<GlobalStateContextType | null>(null);
@@ -35,6 +38,7 @@ function GlobalState({children}: {children: React.ReactNode}) {
   const [modalVisible, setModalVisible] = useState(false);
   const [allUsers, setAllUsers] = useState<User[]>([]);
   const [allChatRooms, setAllChatRooms] = useState<ChatRoom[]>([]);
+  const [currentGroupName, setCurrentGroupName] = useState<string | null>(null);
 
   return (
     <GlobalContext.Provider
@@ -52,8 +56,9 @@ function GlobalState({children}: {children: React.ReactNode}) {
         modalVisible,
         setModalVisible,
         allChatRooms,
-        setAllChatRooms
-
+        setAllChatRooms,
+        currentGroupName,
+        setCurrentGroupName
       }}>
       {children}
     </GlobalContext.Provider>
