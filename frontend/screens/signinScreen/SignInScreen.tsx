@@ -23,14 +23,14 @@ import {
 } from 'react-native-responsive-screen';
 // import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 // import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
-import Carousel from 'react-native-snap-carousel';
+
 import {
   GoogleSignin,
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import Carousel from 'pinar';
 import {_signinWithGoogle} from '../../config/firebase/GoogleSignIn';
 import React, {useContext} from 'react';
 import {GlobalContext} from '../../context';
@@ -80,17 +80,17 @@ export const SignInScreen = () => {
     {
       id: 1,
       title: 'CONNECT WITH OTHER PEOPLE',
-      url: '../../assets/images/connectpeople.jpg',
+      url: require('../../assets/images/connectpeople.jpg'),
     },
     {
       id: 2,
       title: 'CREATE YOUR COMMUNITY',
-      url: '../../assets/images/createcommunity.jpg',
+      url: require('../../assets/images/createcommunity.jpg'),
     },
     {
       id: 3,
       title: 'FIND NEW FRIENDS',
-      url: '../../assets/images/findfriends.jpg',
+      url: require('../../assets/images/findfriends.jpg'),
     },
     // Add more items as needed
   ];
@@ -151,14 +151,47 @@ export const SignInScreen = () => {
         color={GoogleSigninButton.Color.Light}
         onPress={signInWithGoogle}
       />
+      <View style={{height: hp(30), marginBottom: 0}}>
+        <Carousel
+          loop={true}
+          autoplay={true}
+          showsControls={false}
+          style={styles.carousel}>
+          {data.map(img => (
+            <View key={img.title} style={{  borderWidth: 1, borderTopEndRadius:20,
+              borderTopStartRadius:20, overflow:'hidden'}}>
+              <View
+               style={{
+                height: hp(5),
+                backgroundColor: 'white',
+                justifyContent: 'center',
+               
+              
+               }}
+              >
+              <Text
+                style={{
+                 
+                  color: 'black',
+                  textAlign: "center",
+                
+                  
+                
+                }}>
+                {img.title}
+              </Text>
+              </View>
+             
 
-      <Carousel
-        style={styles.carouselContainer}
-        data={data}
-        renderItem={renderItem}
-        sliderWidth={wp(100)} // Set the width of the carousel
-        itemWidth={wp(100)} // Set the width of each item in the carousel
-      />
+              <Image
+                style={styles.image}
+                source={img.url}
+                resizeMode="contain"
+              />
+            </View>
+          ))}
+        </Carousel>
+      </View>
     </SafeAreaView>
   );
 };
@@ -167,9 +200,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-between', // Add this for vertical spacing
+    justifyContent: 'space-between',
     backgroundColor: '#9FFFE0',
-    paddingTop: hp(10), // Add some vertical padding
+    paddingTop: hp(10), 
   },
   welcomeText: {
     color: 'black',
@@ -186,26 +219,20 @@ const styles = StyleSheet.create({
     width: wp(60),
     height: 50,
     borderRadius: 10,
-    shadowColor: '#000', // Add shadow for depth
+    shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
   },
-  carouselContainer: {
-    height: hp(50),
-    backgroundColor: 'white',
+
+  carousel: {
+    height: '100%',
     width: '100%',
-    borderTopEndRadius: 20,
-    borderTopLeftRadius: 20,
-    borderWidth: 2,
-    borderColor: '#00CE61',
-    position: 'absolute',
-    bottom: 0,
   },
-  carouselImage: {
-    width: 300,
-    height: 300,
-    resizeMode: 'contain',
+  image: {
+    height: hp(25),
+    width: '100%',
+    borderRadius: 1,
   },
 });
