@@ -5,8 +5,15 @@ const app = express();
 const http = require('http').Server(app);
 
 const cors = require('cors');
+const socketIO = require('socket.io')(http, {
+  cors: {
+    origin: 'https://10.0.2.2:3000/'
+  }
+})
 
 const PORT = 4000;
+
+let chatgroups = [];
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -24,6 +31,11 @@ app.get('/api', (req, res) => {
   // 'res' stands for the response object, which is used to send back a response to the client.
   console.log(req, res);
 });
+
+socketIO.on('connection', (socket) => {
+  console.log(` ${socket.id} a user connected`);
+});
+
 
 // Tell the HTTP server to start listening for requests on the specified PORT.
 http.listen(PORT, () => {

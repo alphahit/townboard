@@ -10,6 +10,7 @@ import {
   Keyboard,
 } from 'react-native';
 import {GlobalContext} from '../context';
+import { socket } from '../utils';
 
 const CreateGroupModal = () => {
   const context = useContext(GlobalContext);
@@ -22,6 +23,7 @@ const CreateGroupModal = () => {
 
     const handleCreateNewRoom = () => {
       console.log('Current Group Name: ' + currentGroupName);
+      socket.emit('createNewGroup',currentGroupName);
       setModalVisible(false);
       setCurrentGroupName('');
       Keyboard.dismiss();
