@@ -16,11 +16,7 @@ import {
   // TextInput
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-} from 'react-native-reanimated';
+
 import {SvgXml} from 'react-native-svg';
 import searchSvg from '../../assets/svg/search.svg';
 import plusSvg from '../../assets/svg/plus.svg';
@@ -51,12 +47,7 @@ export const Chat = () => {
   }
 const {allChatRooms, setAllChatRooms, modalVisible, setModalVisible} = context
   const GradientView = ({children}: {children: any}) => {
-    const scale = useSharedValue(1);
-    const animatedStyle = useAnimatedStyle(() => {
-      return {
-        transform: [{scale: scale.value}],
-      };
-    });
+ 
 
     return (
       <LinearGradient
@@ -64,7 +55,7 @@ const {allChatRooms, setAllChatRooms, modalVisible, setModalVisible} = context
         start={{x: 0, y: 0}}
         end={{x: 1, y: 0}}
         style={{flex: 1}}>
-        <Animated.View>{children}</Animated.View>
+        <View>{children}</View>
       </LinearGradient>
     );
   };

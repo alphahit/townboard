@@ -8,11 +8,7 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
-import Animated, {
-  useSharedValue,
-  withSpring,
-  useAnimatedStyle,
-} from 'react-native-reanimated';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {tweets} from '../../data/tweets';
 // import {Tweet} from '../../components/Tweet';
@@ -66,12 +62,12 @@ export default function Feed() {
     children: any;
     onPress: any;
   }) => {
-    const scale = useSharedValue(1);
-    const animatedStyle = useAnimatedStyle(() => {
-      return {
-        transform: [{scale: scale.value}],
-      };
-    });
+    // const scale = useSharedValue(1);
+    // const animatedStyle = useAnimatedStyle(() => {
+    //   return {
+    //     transform: [{scale: scale.value}],
+    //   };
+    // });
 
     return (
       <LinearGradient
@@ -79,19 +75,20 @@ export default function Feed() {
         start={{x: 0, y: 0}}
         end={{x: 1, y: 0}}
         style={{borderRadius: 10, borderWidth: 1}}>
-        <Animated.View style={animatedStyle}>
+        <View>
           <TouchableOpacity
             style={{}}
             onPress={onPress}
-            onPressIn={() => {
-              scale.value = withSpring(0.95);
-            }}
-            onPressOut={() => {
-              scale.value = withSpring(1);
-            }}>
+            // onPressIn={() => {
+            //   scale.value = withSpring(0.95);
+            // }}
+            // onPressOut={() => {
+            //   scale.value = withSpring(1);
+            // }}
+            >
             {children}
           </TouchableOpacity>
-        </Animated.View>
+        </View>
       </LinearGradient>
     );
   };
@@ -106,9 +103,9 @@ export default function Feed() {
     navigation.navigate('TweetDetailsScreen', {item});
   }}
 >
-  <Animated.View
+  <View
     style={styles.animatedView}
-    sharedTransitionTag={`post-${item?.item?.id}`}
+    // sharedTransitionTag={`post-${item?.item?.id}`}
   >
     <TouchableOpacity style={styles.avatarContainer}>
       <Image
@@ -120,7 +117,7 @@ export default function Feed() {
     <View style={styles.authorContainer}>
       <Text style={styles.authorName}>{item?.item?.author?.name}</Text>
     </View>
-  </Animated.View>
+  </View>
   <View style={styles.textContent}>
     <Text style={styles.text}>{item?.item?.fullText}</Text>
   </View>

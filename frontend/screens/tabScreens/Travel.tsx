@@ -25,7 +25,7 @@ import {
 } from 'react-native-responsive-screen';
 // import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
-import Animated from 'react-native-reanimated';
+
 
 export const Travel = ({navigation}: {navigation: any}) => {
   const [countries, setCountries] = useState([
@@ -94,7 +94,7 @@ export const Travel = ({navigation}: {navigation: any}) => {
   };
 
   return (
-    <Animated.View
+    <View
       style={{
         flex: 1,
         justifyContent: 'center',
@@ -175,7 +175,7 @@ export const Travel = ({navigation}: {navigation: any}) => {
                   countryImage: item.img,
                   countryName: item.name,
 
-                  sharedTransitionTag: item.id + 'image',
+                  //sharedTransitionTag: item.id + 'image',
                 });
               }}>
               <View
@@ -213,11 +213,11 @@ export const Travel = ({navigation}: {navigation: any}) => {
                 </TouchableOpacity>
               </View>
 
-              <Animated.Image
+              <Image
                 style={{width: '100%', height: 90, borderRadius: 10}}
                 resizeMode="cover"
                 source={item.img}
-                sharedTransitionTag={item.id + 'image'}
+                //sharedTransitionTag={item.id + 'image'}
               />
 
               <TextInput
@@ -266,6 +266,6 @@ export const Travel = ({navigation}: {navigation: any}) => {
           </View>
         )}
       />
-    </Animated.View>
+    </View>
   );
 };

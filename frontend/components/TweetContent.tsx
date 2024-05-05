@@ -12,11 +12,7 @@ import {
   Platform,
   UIManager,
 } from 'react-native';
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withTiming,
-} from 'react-native-reanimated';
+
 import {useNavigation} from '@react-navigation/native';
 import {useEffect, useLayoutEffect} from 'react';
 import FontAwesome5 from 'react-native-vector-icons/dist/FontAwesome5';
@@ -105,7 +101,7 @@ export const TweetContent = ({
   }, []);
   return (
     <View style={{alignItems: 'center', height: '100%'}}>
-      <Animated.View
+      <View
         style={{
           marginTop: 20,
           borderWidth: 1,
@@ -115,9 +111,10 @@ export const TweetContent = ({
           alignSelf: 'center',
           marginHorizontal: wp(2),
         }}
-        sharedTransitionTag={`post-${params?.item?.item?.id}`}>
+        // sharedTransitionTag={`post-${params?.item?.item?.id}`}
+        >
         <Text style={{color: 'black'}}>{params?.item?.item?.fullText}</Text>
-      </Animated.View>
+      </View>
 
       <View
         style={{

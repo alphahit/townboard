@@ -7,7 +7,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
-import Animated from 'react-native-reanimated';
+
 const CountryDetails = ({navigation}) => {
 
 const [stateList, setStateLsit] = useState([])
@@ -55,7 +55,7 @@ useEffect(() => {
 
 
   return (
-    <Animated.View style={{ flex: 1 }}>
+    <View style={{ flex: 1 }}>
       <TouchableOpacity
             onPress={() => {
               navigation.goBack();
@@ -64,11 +64,11 @@ useEffect(() => {
             >
             <Ionicons name="arrow-back-circle" size={40} color="#000" />
           </TouchableOpacity>
-      <Animated.Image
+      <Image
         source={route.params.countryImage}
         style={{ width: '100%', height: 200 }}
         resizeMode="cover"
-        sharedTransitionTag={route.params.sharedTransitionTag}
+        // sharedTransitionTag={route.params.sharedTransitionTag}
       />
       
       <View style={{ alignItems:'center', justifyContent:'center'}}>
@@ -88,7 +88,7 @@ useEffect(() => {
       />}
         
       </View>
-    </Animated.View>
+    </View>
   );
 };
 
