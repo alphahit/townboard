@@ -7,6 +7,7 @@ import {
   Pressable,
   View,
   TextInput,
+  Keyboard,
 } from 'react-native';
 import {GlobalContext} from '../context';
 
@@ -18,6 +19,13 @@ const CreateGroupModal = () => {
   }
   const {modalVisible, setModalVisible, currentGroupName, setCurrentGroupName} =
     context;
+
+    const handleCreateNewRoom = () => {
+      console.log('Current Group Name: ' + currentGroupName);
+      setModalVisible(false);
+      setCurrentGroupName('');
+      Keyboard.dismiss();
+    }
   return (
     <Modal
       animationType="slide"
@@ -32,8 +40,8 @@ const CreateGroupModal = () => {
           <View style={{width: '100%'}}>
             <TextInput
               style={styles.input}
-              onChangeText={onChangeText}
-              value={text}
+              onChangeText={(value)=> setCurrentGroupName(value)}
+              value={currentGroupName || ''}
               placeholder="Create A New Group"
               placeholderTextColor="#999"
             />
@@ -46,7 +54,7 @@ const CreateGroupModal = () => {
             }}>
             <Pressable
               style={[styles.button, styles.buttonCreate]}
-              //onPress={() => setModalVisible(!modalVisible)}
+              onPress={handleCreateNewRoom}
               >
               <Text style={styles.textStyle}>Create</Text>
             </Pressable>
